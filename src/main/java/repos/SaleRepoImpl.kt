@@ -1,15 +1,18 @@
 package repos
 
 import com.google.inject.Singleton
+import java.time.LocalDate
 
 @Singleton
 class SaleRepoImpl : SaleRepo {
-    private val earningsOverTime = mutableListOf<Int>()
+    private var earningsOverTime: List<Pair<Int, LocalDate>> = emptyList()
 
-    override fun persist(earnings: Int) {
-        earningsOverTime.add(earnings)
+    override fun persist(earnings: List<Int>) {
+        val startDate = LocalDate.now()
+        val backwardsDates: Sequence<LocalDate> = generateSequence(startDate) { date -> date.minusDays(1) }
+        earningsOverTime = earnings.asSequence().zip(backwardsDates).toList()
         println("$earnings persisted")
     }
 
-    override fun latest() = earningsOverTime.last()
+    override fun findAll() = earningsOverTime
 }

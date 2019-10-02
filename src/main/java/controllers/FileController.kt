@@ -14,9 +14,10 @@ class FileController : Controller() {
             return
         }
         val file = files[0]
-        file.bufferedReader().lines()
+        val earnings = file.bufferedReader().lines()
                 .asSequence()
                 .mapNotNull(String::toIntOrNull)
-                .forEach(saleRepo::persist)
+                .toList()
+        saleRepo.persist(earnings)
     }
 }

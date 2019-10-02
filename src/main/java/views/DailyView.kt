@@ -2,13 +2,18 @@ package views
 
 import dateaxis.DateAxis
 import javafx.scene.chart.NumberAxis
+import repos.SaleRepo
 import tornadofx.*
-import java.util.*
+import java.time.ZoneId
 
 class DailyView : View() {
-    override val root = linechart("Unit Sales Q2 2016", DateAxis(), NumberAxis()) {
-        series("Product X") {
-            data(GregorianCalendar(2019, Calendar.FEBRUARY, 1).timeInMillis, 10245)
+    private val saleRepo: SaleRepo by di()
+
+    override val root = linechart("$$$ per day", DateAxis(), NumberAxis()) {
+        series("Cupcakes") {
+            for ((income, date) in saleRepo.findAll()) {
+                data(date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli(), income)
+            }
         }
     }
 }

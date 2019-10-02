@@ -1,22 +1,15 @@
 package views
 
 import controllers.FileController
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleStringProperty
 import javafx.stage.FileChooser
-import repos.SaleRepo
 import tornadofx.*
 
 class MainView : View() {
     private val controller: FileController by inject()
     private val dailyView: DailyView by inject()
     private val weeklyView: WeeklyView by inject()
-    private val saleRepo: SaleRepo by di()
-
-    private var graph: View = dailyView
-
-    private val prop = SimpleStringProperty()
-    private val showGraph = SimpleBooleanProperty()
+    private val monthlyView: MonthlyView by inject()
+    private val yearlyView: YearlyView by inject()
 
     override val root = vbox {
         hbox {
@@ -26,19 +19,18 @@ class MainView : View() {
                     controller.uploadFiles(files)
                 }
             }
-            button("Show latest sale") {
-                action {
-                    prop.set(saleRepo.latest().toString())
-                }
-            }
-            text(prop)
             button("Show daily") {
-                action { graph.replaceWith<DailyView>() }
+                action { dailyView.openModal() }
             }
             button("Show weekly") {
-                action { graph.replaceWith<WeeklyView>() }
+                action { weeklyView.openModal() }
+            }
+            button("Show monthly") {
+                action { monthlyView.openModal() }
+            }
+            button("Show yearly") {
+                action { yearlyView.openModal() }
             }
         }
-        this.add(graph)
     }
 }
