@@ -6,7 +6,8 @@ import java.io.File
 import kotlin.streams.asSequence
 
 class FileController : Controller() {
-    private val saleRepo = SaleRepo()
+
+    private val saleRepo: SaleRepo by di()
 
     fun uploadFiles(files: List<File>) {
         if (files.isEmpty()) {
