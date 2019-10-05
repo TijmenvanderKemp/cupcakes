@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 
 class CupcakesApp : App(MainView::class) {
     init {
-        val guice = Guice.createInjector(MyModule())
+        val guice = Guice.createInjector(SalesModule())
 
         FX.dicontainer = object : DIContainer {
             override fun <T : Any> getInstance(type: KClass<T>) = guice.getInstance(type.java)
