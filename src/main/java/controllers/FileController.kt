@@ -1,5 +1,6 @@
 package controllers
 
+import EarningsModel
 import repos.SaleRepo
 import tornadofx.*
 import java.io.File
@@ -8,6 +9,7 @@ import kotlin.streams.asSequence
 class FileController : Controller() {
 
     private val saleRepo: SaleRepo by di()
+    private val earningsModel: EarningsModel by di()
 
     fun uploadFiles(files: List<File>) {
         if (files.isEmpty()) {
@@ -19,5 +21,6 @@ class FileController : Controller() {
                 .mapNotNull(String::toIntOrNull)
                 .toList()
         saleRepo.persist(earnings)
+        earningsModel.refreshAll()
     }
 }

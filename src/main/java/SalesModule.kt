@@ -5,6 +5,7 @@ import repos.SaleRepoImpl
 class SalesModule : KotlinModule() {
     override fun configure() {
         bind<SaleRepo>().to<SaleRepoImpl>()
+        bind<EarningsModel>().to<EarningsModelImpl>()
     }
 
 }
