@@ -1,4 +1,5 @@
 import com.google.inject.Guice
+import injection.SalesModule
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import tornadofx.*

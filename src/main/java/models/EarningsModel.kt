@@ -1,5 +1,8 @@
+package models
+
 import entities.Month
 import entities.Week
+import observablemapasdatapoints.RefreshableMap
 import java.time.LocalDate
 
 interface EarningsModel {

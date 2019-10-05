@@ -59,13 +59,12 @@ public class XYBarChart<X, Y> extends XYChart<X, Y> {
    */
   private static final PseudoClass HORIZONTAL_PSEUDOCLASS_STATE =
       PseudoClass.getPseudoClass("horizontal");
-  static int layoutPlotChildrenCount = 1;
+  private static int layoutPlotChildrenCount = 1;
   private static String NEGATIVE_STYLE = "negative";
   private final Orientation orientation;
   private Map<Series, Map<Object, Data<X, Y>>> seriesCategoryMap = new HashMap<Series, Map<Object, Data<X, Y>>>();
   private TreeSet categories = new TreeSet();
   private Legend legend = new Legend();
-  private boolean seriesRemove = false;
   private ValueAxis valueAxis;
   private Timeline dataRemoveTimeline;
   // -------------- PUBLIC PROPERTIES ----------------------------------------
@@ -156,8 +155,8 @@ public class XYBarChart<X, Y> extends XYChart<X, Y> {
     // assuming value axis is the second axis
     valueAxis = (ValueAxis) yAxis;
     // update css
-    pseudoClassStateChanged(HORIZONTAL_PSEUDOCLASS_STATE, orientation == Orientation.HORIZONTAL);
-    pseudoClassStateChanged(VERTICAL_PSEUDOCLASS_STATE, orientation == Orientation.VERTICAL);
+    pseudoClassStateChanged(HORIZONTAL_PSEUDOCLASS_STATE, false);
+    pseudoClassStateChanged(VERTICAL_PSEUDOCLASS_STATE, true);
     setData(data);
   }
 
@@ -237,7 +236,7 @@ public class XYBarChart<X, Y> extends XYChart<X, Y> {
     //        } else if (categoryMap.containsKey(category)){
     if (categoryMap.containsKey(category)) {
       // RT-21162 : replacing the previous data, first remove the node from scenegraph.
-      Data data = categoryMap.get(category);
+      Data<X, Y> data = categoryMap.get(category);
       getPlotChildren().remove(data.getNode());
       removeDataItemFromDisplay(series, data);
       requestChartLayout();
@@ -382,7 +381,6 @@ public class XYBarChart<X, Y> extends XYChart<X, Y> {
       });
       for (final Data<X, Y> d : series.getData()) {
         final Node bar = d.getNode();
-        seriesRemove = true;
         // Animate series deletion
         if (/*getSeriesSize()*/((int) ReflectionUtils.forceMethodCall(XYChart.class, "getSeriesSize", this)) > 1) {
           for (int j = 0; j < series.getData().size(); j++) {

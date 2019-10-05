@@ -1,4 +1,8 @@
+package injection
+
 import dev.misfitlabs.kotlinguice4.KotlinModule
+import models.EarningsModel
+import models.EarningsModelImpl
 import repos.SaleRepo
 import repos.SaleRepoImpl
 

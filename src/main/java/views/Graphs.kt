@@ -1,13 +1,13 @@
 package views
 
-import EarningsModel
-import ObservableDataPointList
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
 import javafx.scene.Parent
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.NumberAxis
 import javafx.scene.chart.XYChart
+import models.EarningsModel
+import observablemapasdatapoints.ObservableDataPointList
 import tornadofx.*
 
 

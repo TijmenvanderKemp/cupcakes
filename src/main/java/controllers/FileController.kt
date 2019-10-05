@@ -1,6 +1,6 @@
 package controllers
 
-import EarningsModel
+import models.EarningsModel
 import repos.SaleRepo
 import tornadofx.*
 import java.io.File

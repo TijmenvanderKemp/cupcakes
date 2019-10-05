@@ -1,3 +1,5 @@
+package observablemapasdatapoints
+
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
 import javafx.scene.chart.XYChart

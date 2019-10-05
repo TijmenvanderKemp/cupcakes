@@ -1,5 +1,8 @@
+package models
+
 import com.google.inject.Inject
 import com.google.inject.Singleton
+import observablemapasdatapoints.RefreshableMap
 import repos.SaleRepo
 
 @Singleton
